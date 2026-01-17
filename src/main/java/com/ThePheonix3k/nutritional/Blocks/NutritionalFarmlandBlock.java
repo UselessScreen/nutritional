@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
@@ -17,6 +18,11 @@ public class NutritionalFarmlandBlock extends FarmlandBlock {
     public NutritionalFarmlandBlock(Settings settings) {
         super(settings);
     }
+
+    public static final IntProperty PHOSPHORUS;
+    public static final IntProperty NITROGEN;
+    public static final IntProperty POTASSIUM;
+
 
 
     @Override
@@ -58,5 +64,11 @@ public class NutritionalFarmlandBlock extends FarmlandBlock {
 
     private static boolean hasCrop(BlockView world, BlockPos pos) {
         return world.getBlockState(pos.up()).isIn(BlockTags.MAINTAINS_FARMLAND);
+    }
+
+    static {
+        PHOSPHORUS = BlockProperties.PHOSPHORUS;
+        NITROGEN = BlockProperties.NITROGEN;
+        POTASSIUM = BlockProperties.POTASSIUM;
     }
 }

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ThePheonix3k.nutritional.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnyPlantOnNutritionalFarmland"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
