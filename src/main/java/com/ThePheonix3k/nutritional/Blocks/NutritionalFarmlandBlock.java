@@ -1,13 +1,16 @@
 package com.ThePheonix3k.nutritional.Blocks;
 
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
@@ -17,11 +20,12 @@ import net.minecraft.world.WorldView;
 public class NutritionalFarmlandBlock extends FarmlandBlock {
     public NutritionalFarmlandBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(NITROGEN, 0).with(PHOSPHORUS, 0).with(POTASSIUM, 0));
     }
 
-    public static final IntProperty PHOSPHORUS;
-    public static final IntProperty NITROGEN;
-    public static final IntProperty POTASSIUM;
+    public static final IntProperty PHOSPHORUS = BlockProperties.PHOSPHORUS;
+    public static final IntProperty NITROGEN = BlockProperties.NITROGEN;
+    public static final IntProperty POTASSIUM = BlockProperties.POTASSIUM;
 
 
 
@@ -66,9 +70,8 @@ public class NutritionalFarmlandBlock extends FarmlandBlock {
         return world.getBlockState(pos.up()).isIn(BlockTags.MAINTAINS_FARMLAND);
     }
 
-    static {
-        PHOSPHORUS = BlockProperties.PHOSPHORUS;
-        NITROGEN = BlockProperties.NITROGEN;
-        POTASSIUM = BlockProperties.POTASSIUM;
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(PHOSPHORUS, NITROGEN, POTASSIUM);
     }
 }
