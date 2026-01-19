@@ -107,7 +107,7 @@ public class NutritionalFarmlandBlock extends BlockWithEntity {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity != null && blockEntity instanceof NutritionalFarmlandBlockBlockEntity farmlandEntity) {
+            if (blockEntity instanceof NutritionalFarmlandBlockBlockEntity farmlandEntity) {
                 player.sendMessage(Text.literal("Hydration: " + farmlandEntity.getHydrationLevel()), false);
             }
         }
@@ -117,7 +117,7 @@ public class NutritionalFarmlandBlock extends BlockWithEntity {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity != null && blockEntity instanceof NutritionalFarmlandBlockBlockEntity farmlandEntity) {
+        if (blockEntity instanceof NutritionalFarmlandBlockBlockEntity farmlandEntity) {
             farmlandEntity.randomTick(state, world, pos, random);
         }
         
