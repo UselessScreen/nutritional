@@ -25,7 +25,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class NutritionalFarmlandBlock extends BlockWithEntity implements BlockEntityProvider {
+public class NutritionalFarmlandBlock extends BlockWithEntity {
     public static final IntProperty MOISTURE = Properties.MOISTURE;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
 
@@ -96,7 +96,7 @@ public class NutritionalFarmlandBlock extends BlockWithEntity implements BlockEn
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{MOISTURE});
+        builder.add(MOISTURE);
     }
 
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
