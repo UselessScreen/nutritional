@@ -36,7 +36,8 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
     }
 
     public double findNearestWaterDistance(WorldView world, BlockPos pos) {
-        double waterDist = 0;
+        double minWaterDist = Double.MAX_VALUE;
+        boolean foundWater = false;
 
         for(int i = -1; i <= 1; ++i) {
             for(int j = -1; j <= 1; ++j) {
@@ -46,12 +47,16 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
                         double dx = (p.getX()) - (pos.getX());
                         double dy = (p.getY()) - (pos.getY());
                         double dz = (p.getZ()) - (pos.getZ());
-                        waterDist = Math.abs(dx) + Math.abs(dy) + Math.abs(dz);
+                        double dist = Math.abs(dx) + Math.abs(dy) + Math.abs(dz);
+                        if (dist < minWaterDist) {
+                            minWaterDist = dist;
+                            foundWater = true;
+                        }
                     }
                 }
             }
         }
-        return waterDist;
+        return foundWater ? minWaterDist : 0;
     }
 
     @Override
