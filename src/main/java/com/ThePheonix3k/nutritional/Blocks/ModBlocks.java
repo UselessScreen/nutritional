@@ -2,6 +2,7 @@ package com.ThePheonix3k.nutritional.Blocks;
 
 import com.ThePheonix3k.nutritional.Nutritional;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -10,7 +11,16 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static void initialize() {}
+    public static BlockEntityType<NutritionalFarmlandBlockBlockEntity> NUTRITIONAL_FARMLAND_BLOCK_ENTITY;
+    
+    public static void initialize() {
+        // Register block entity type
+        NUTRITIONAL_FARMLAND_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE,
+            new Identifier(Nutritional.MOD_ID, "farmland_block_entity"),
+            BlockEntityType.Builder.create(NutritionalFarmlandBlockBlockEntity::new, NUTRITIONAL_FARMLAND).build(null)
+        );
+    }
 
     public static Block register(Block block, String name, boolean shouldRegisterItem) {
         Identifier id = new Identifier(Nutritional.MOD_ID, name);

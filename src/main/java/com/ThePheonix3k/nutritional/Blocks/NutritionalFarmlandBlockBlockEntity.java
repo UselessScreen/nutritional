@@ -1,6 +1,5 @@
 package com.ThePheonix3k.nutritional.Blocks;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,26 +12,27 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
 
 public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
-    //start of new stuff
-
     public float nitrogenLevel;
     public float phosphorusLevel;
     public float potassiumLevel;
 
     private double hydrationLevel;
 
-    public NutritionalFarmlandBlockBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public NutritionalFarmlandBlockBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlocks.NUTRITIONAL_FARMLAND_BLOCK_ENTITY, pos, state);
+        this.nitrogenLevel = 0.0f;
+        this.phosphorusLevel = 0.0f;
+        this.potassiumLevel = 0.0f;
+        this.hydrationLevel = 0.0;
     }
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         this.hydrationLevel = findNearestWaterDistance(world, pos);
-//        float localdistance = findNearestWaterDistance(world, pos);
-//        if(Float.isInfinite(localdistance)) {
-//            this.hydrationLevel = 0.0f;
-//        } else {
-//            this.hydrationLevel = localdistance * 100.0f;
-//        }
+        markDirty();
+    }
+
+    public double getHydrationLevel() {
+        return this.hydrationLevel;
     }
 
     public double findNearestWaterDistance(WorldView world, BlockPos pos) {
@@ -55,9 +55,20 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        // Save the current value of the number to the nbt
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
-        nbt.putInt("number", number);
+        nbt.putFloat("nitrogenLevel", nitrogenLevel);
+        nbt.putFloat("phosphorusLevel", phosphorusLevel);
+        nbt.putFloat("potassiumLevel", potassiumLevel);
+        nbt.putDouble("hydrationLevel", hydrationLevel);
+    }
+
+    @Override
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        this.nitrogenLevel = nbt.getFloat("nitrogenLevel");
+        this.phosphorusLevel = nbt.getFloat("phosphorusLevel");
+        this.potassiumLevel = nbt.getFloat("potassiumLevel");
+        this.hydrationLevel = nbt.getDouble("hydrationLevel");
     }
 }
