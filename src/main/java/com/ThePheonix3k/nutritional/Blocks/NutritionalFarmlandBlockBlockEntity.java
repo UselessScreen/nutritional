@@ -66,9 +66,17 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
-        this.nitrogenLevel = nbt.getFloat("nitrogenLevel");
-        this.phosphorusLevel = nbt.getFloat("phosphorusLevel");
-        this.potassiumLevel = nbt.getFloat("potassiumLevel");
-        this.hydrationLevel = nbt.getDouble("hydrationLevel");
+        if (nbt.contains("nitrogenLevel")) {
+            this.nitrogenLevel = nbt.getFloat("nitrogenLevel");
+        }
+        if (nbt.contains("phosphorusLevel")) {
+            this.phosphorusLevel = nbt.getFloat("phosphorusLevel");
+        }
+        if (nbt.contains("potassiumLevel")) {
+            this.potassiumLevel = nbt.getFloat("potassiumLevel");
+        }
+        if (nbt.contains("hydrationLevel")) {
+            this.hydrationLevel = nbt.getDouble("hydrationLevel");
+        }
     }
 }

@@ -2,8 +2,6 @@ package com.ThePheonix3k.nutritional.Blocks;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -109,7 +107,7 @@ public class NutritionalFarmlandBlock extends BlockWithEntity implements BlockEn
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof NutritionalFarmlandBlockBlockEntity) {
+            if (blockEntity != null && blockEntity instanceof NutritionalFarmlandBlockBlockEntity) {
                 NutritionalFarmlandBlockBlockEntity farmlandEntity = (NutritionalFarmlandBlockBlockEntity) blockEntity;
                 player.sendMessage(Text.literal("Hydration: " + farmlandEntity.getHydrationLevel()), false);
             }
@@ -120,7 +118,7 @@ public class NutritionalFarmlandBlock extends BlockWithEntity implements BlockEn
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof NutritionalFarmlandBlockBlockEntity) {
+        if (blockEntity != null && blockEntity instanceof NutritionalFarmlandBlockBlockEntity) {
             ((NutritionalFarmlandBlockBlockEntity) blockEntity).randomTick(state, world, pos, random);
         }
         
