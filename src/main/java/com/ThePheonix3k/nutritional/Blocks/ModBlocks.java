@@ -11,10 +11,18 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
+    // Declare block first
+    public static final Block NUTRITIONAL_FARMLAND = register(
+            new NutritionalFarmlandBlock(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6f).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always)),
+            "farmland",
+            true
+    );
+    
+    // Block entity type will be initialized in initialize()
     public static BlockEntityType<NutritionalFarmlandBlockBlockEntity> NUTRITIONAL_FARMLAND_BLOCK_ENTITY;
     
     public static void initialize() {
-        // Register block entity type
+        // Register block entity type after block is registered
         NUTRITIONAL_FARMLAND_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
             new Identifier(Nutritional.MOD_ID, "farmland_block_entity"),
@@ -32,10 +40,4 @@ public class ModBlocks {
 
         return Registry.register(Registries.BLOCK, id, block);
     }
-
-    public static final Block NUTRITIONAL_FARMLAND = register(
-            new NutritionalFarmlandBlock(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6f).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always)),
-            "farmland",
-            true
-    );
 }
