@@ -4,7 +4,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -60,8 +59,8 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
         nbt.putFloat("nitrogenLevel", nitrogenLevel);
         nbt.putFloat("phosphorusLevel", phosphorusLevel);
         nbt.putFloat("potassiumLevel", potassiumLevel);
@@ -69,8 +68,8 @@ public class NutritionalFarmlandBlockBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
         if (nbt.contains("nitrogenLevel")) {
             this.nitrogenLevel = nbt.getFloat("nitrogenLevel");
         }
