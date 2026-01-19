@@ -24,7 +24,7 @@ public class ModBlocks {
     }
 
     public static final Block NUTRITIONAL_FARMLAND = register(
-            new FarmlandBlockEntity(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6f).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always)),
+            new NutritionalFarmlandBlock(AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6f).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always)),
             "farmland",
             true
     );

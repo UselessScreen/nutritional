@@ -25,8 +25,8 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class FarmlandBlockEntity extends BlockWithEntity implements BlockEntityProvider {
-    protected FarmlandBlockEntity(Settings settings) {
+public class NutritionalFarmlandBlock extends BlockWithEntity implements BlockEntityProvider {
+    protected NutritionalFarmlandBlock(Settings settings) {
         super(settings);
     }
 
@@ -133,39 +133,6 @@ public class FarmlandBlockEntity extends BlockWithEntity implements BlockEntityP
     static {
         SHAPE = Block.createCuboidShape((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)15.0F, (double)16.0F);
         MOISTURE = Properties.MOISTURE;
-    }
-
-
-    //start of new stuff
-
-    public float nitrogenLevel;
-    public float phosphorusLevel;
-    public float potassiumLevel;
-
-    public float hydrationLevel;
-
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        this.hydrationLevel = findNearestWaterDistance(world, pos);
-//        float localdistance = findNearestWaterDistance(world, pos);
-//        if(Float.isInfinite(localdistance)) {
-//            this.hydrationLevel = 0.0f;
-//        } else {
-//            this.hydrationLevel = localdistance * 100.0f;
-//        }
-    }
-
-    public static float findNearestWaterDistance(WorldView world, BlockPos center) {
-        double minSq = Double.POSITIVE_INFINITY;
-        for (BlockPos p : BlockPos.iterate(center.add(-5, -1, -5), center.add(5, 2, 5))) {
-            if (world.getFluidState(p).isIn(FluidTags.WATER)) {
-                double dx = (p.getX() + 0.5D) - (center.getX() + 0.5D);
-                double dy = (p.getY() + 0.5D) - (center.getY() + 0.5D);
-                double dz = (p.getZ() + 0.5D) - (center.getZ() + 0.5D);
-                double sq = dx * dx + dy * dy + dz * dz;
-                if (sq < minSq) minSq = sq;
-            }
-        }
-        return minSq == Double.POSITIVE_INFINITY ? Float.POSITIVE_INFINITY : (float)Math.sqrt(minSq);
     }
 
     @Override
